@@ -1,5 +1,5 @@
 #version 130
-
+# Test
 in vec3 position;
 
 out vec3 frag_color;
