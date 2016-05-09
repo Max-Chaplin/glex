@@ -8,13 +8,13 @@ GameWorld::GameWorld (ApplicationMode mode) {
   int Xaxis = 11;
   int Yaxis = 11;
 
-    int space[Xaxis][Yaxis] = {
+    int space[11][11] = {
     {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-    {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-    {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-    {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-    {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-    {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+    {1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1},
+    {1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1},
+    {1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1},
+    {1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1},
+    {1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1},
     {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
     {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
     {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
@@ -25,7 +25,7 @@ GameWorld::GameWorld (ApplicationMode mode) {
   for(X = 0; X < Xaxis; X++){
     for(Y = 0; Y < Yaxis; Y++){
       if(space[Y][X] == 1){
-	asset_manager->AddAsset(std::make_shared<CubeAsset>((X), -1.0f, (Y*Z)));
+	asset_manager->AddAsset(std::make_shared<CubeAsset>(X-4, -10.0f, (Y*Z-6)));
       }
     }
   }
@@ -35,3 +35,4 @@ GameWorld::GameWorld (ApplicationMode mode) {
 void GameWorld::Draw() {
   asset_manager->Draw();
 }
+
