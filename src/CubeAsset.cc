@@ -1,6 +1,6 @@
 #include "CubeAsset.h"
 
-CubeAsset::CubeAsset(GLfloat x, GLfloat y, GLfloat z){
+CubeAsset::CubeAsset(GLfloat x, GLfloat y, GLfloat z): model_matrix(glm::mat4(1.0)){
   // model coordinates, origin at centre.
   GLfloat vertex_buffer [] {
       -0.5f+x, -0.5f+y, -0.5f+z  //0
@@ -94,11 +94,15 @@ void CubeAsset::Draw(GLuint program_token) {
   }
 
   GLuint position_attrib = glGetAttribLocation(program_token, "position");
+  GLuint model_uniform = glGetUniformLocation(program_token, "model");
   checkGLError();
 
   glUseProgram(program_token);
   checkGLError();
 
+  glUniformMatrix4fv(model_uniform, 1, false, glm::value_ptr(model_matrix));
+  rotate_x(45.0f);
+  
   // use the previously transferred buffer as the vertex array.  This way
   // we transfer the buffer once -- at construction -- not on every frame.
   glBindBuffer(GL_ARRAY_BUFFER, vertex_buffer_token);
@@ -126,3 +130,11 @@ void CubeAsset::Draw(GLuint program_token) {
 
   glDisableVertexAttribArray(position_attrib);
 }
+
+void CubeAsset::rotate_x(float angle) {
+
+    glm::vec3 unit_x_axis(1.0,0.0,0.0);
+    glm::vec3 unit_y_axis(0.0,1.0,0.0);
+    glm::mat4 id(model_matrix);
+    model_matrix = glm::rotate(id, 0.1f, unit_x_axis);
+  }
